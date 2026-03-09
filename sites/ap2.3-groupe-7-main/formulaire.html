@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactez la Maison des Ligues de Lorraine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Maison des Ligues de Lorraine</h1>
+    </header>
+
+    <div class="container">
+        <h2>Contactez-nous</h2>
+        <form action="mailto:contact@maisondesligues.com" method="post" enctype="text/plain">
+            <div>
+                <label for="name">Nom</label>
+                <input type="text" id="name" name="name" required placeholder="Votre nom" />
+            </div>
+            <br></br>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Votre email" />
+            </div>
+            <br></br>
+            <div>
+                <label for="subject">Sujet</label>
+                <input type="text" id="subject" name="subject" required placeholder="Sujet de votre message" />
+            </div>
+            <br></br>
+            <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required placeholder="Votre message ici..."></textarea>
+            </div>
+            <br></br>
+            <button type="submit">Envoyer le message</button>
+            <br></br>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Maison des Ligues de Lorraine</p>
+    </footer>
+
+</body>
+</html>

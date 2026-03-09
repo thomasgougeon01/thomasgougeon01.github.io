@@ -1,0 +1,103 @@
+.cv-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 3rem;
+    margin-top: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.cv-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* Ajoute un gros espace entre Qualités, Langues et Intérêts */
+}
+
+.aside-block h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--accent); /* Titre en couleur pour mieux séparer */
+    letter-spacing: 1.5px;
+    margin-bottom: 1.2rem; /* Espace sous le titre */
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2); /* Petite ligne de séparation */
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.cv-hero {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+
+.cv-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; margin-bottom: 1rem; }
+.cv-contact { display: flex; gap: 20px; color: var(--text-dim); margin-bottom: 1.5rem; }
+
+.btn-pdf {
+    background: rgba(255,255,255,0.05); color: var(--accent);
+    padding: 8px 20px; border-radius: 50px; border: 1px solid var(--accent);
+    text-decoration: none; font-weight: 700; font-size: 0.9rem;
+}
+
+.cv-content { display: grid; grid-template-columns: 1fr 250px; gap: 4rem; }
+
+.cv-title { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 2rem; }
+
+.timeline { border-left: 2px solid var(--border); padding-left: 2rem; }
+.step { position: relative; margin-bottom: 2.5rem; }
+.step::before {
+    content: ""; position: absolute; left: -37px; top: 5px;
+    width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.date { color: var(--accent); font-family: monospace; font-size: 0.8rem; }
+.step h4 { font-size: 1.2rem; margin: 5px 0; }
+.step p { color: var(--text-dim); }
+
+.aside-block h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1rem; }
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espace entre chaque badge */
+}
+
+.tags span {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+    transition: 0.3s;
+}
+
+/* Effet au survol des tags pour le côté interactif */
+.tags span:hover {
+    border-color: var(--accent);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.lang-text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espace entre Français et Anglais */
+}
+
+.lang-text p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.lang-text i {
+    font-size: 1.1rem; /* Icône un peu plus grande */
+    filter: drop-shadow(0 0 5px var(--accent)); /* Petit halo lumineux sur le check */
+}
+
+@media (max-width: 800px) {
+    .cv-content { grid-template-columns: 1fr; }
+    .cv-hero h1 { font-size: 2.5rem; }
+}

@@ -1,0 +1,199 @@
+:root {
+    --bg: #030712;
+    --card: rgba(17, 24, 39, 0.7);
+    --accent: #10b981;
+    --accent-pro: #f59e0b;
+    --text: #f9fafb;
+    --text-dim: #9ca3af;
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.glow-bg {
+    position: fixed; top: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% -20%, rgba(16, 185, 129, 0.15), transparent 50%);
+    z-index: -1;
+}
+
+.header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 5%; position: sticky; top: 0; z-index: 100;
+    background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand { 
+    font-family: 'Space Grotesk', sans-serif; 
+    font-weight: 700; 
+    font-size: 1.3rem; 
+}
+
+.brand span { 
+    color: var(--accent);
+}
+
+nav a { 
+    text-decoration: none; 
+    color: var(--text-dim); margin-left: 2rem; 
+    font-weight: 600; 
+    transition: 0.3s; 
+}
+
+nav a:hover { color: var(--accent); }
+.nav-cv { border: 1px solid var(--accent); padding: 6px 15px; border-radius: 8px; color: var(--accent); }
+
+.site-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+.hero { padding: 100px 0; text-align: center; }
+.hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin: 1.5rem 0; }
+.hero h1 span { background: linear-gradient(90deg, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.badge { background: rgba(16, 185, 129, 0.1); color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+
+.cta-group { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
+.btn-primary { background: var(--accent); color: #000; padding: 12px 25px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+.btn-secondary { border: 1px solid var(--border); color: #fff; padding: 12px 25px; border-radius: 10px; text-decoration: none; }
+
+.section-title { font-size: 2rem; margin: 4rem 0 2rem; border-left: 4px solid var(--accent); padding-left: 1rem; }
+.comp-category { margin-bottom: 3rem; }
+.comp-info { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.comp-info span { font-size: 2rem; font-weight: 800; opacity: 0.1; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+.card-glass {
+    background: var(--card); border: 1px solid var(--border); padding: 2rem; border-radius: 20px;
+    cursor: pointer; transition: 0.3s ease; position: relative;
+}
+.card-glass:hover { transform: translateY(-5px); border-color: var(--accent); background: rgba(17, 24, 39, 0.9); }
+.icon-acc { font-size: 1.5rem; color: var(--accent); margin-bottom: 1rem; display: block; }
+.card-footer { margin-top: 1.5rem; font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; }
+
+.card-glass.professional:hover { border-color: var(--accent-pro); }
+.icon-acc-pro { font-size: 1.5rem; color: var(--accent-pro); margin-bottom: 1rem; display: block; }
+
+.veille-card { display: flex; justify-content: space-between; align-items: center; padding: 3rem; }
+.tag-ai { color: #3b82f6; font-weight: 800; font-size: 0.7rem; letter-spacing: 2px; }
+
+/* --- Correction de la Modale et des Images --- */
+
+.modal-overlay { 
+    display: none; /* Caché par défaut */
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0, 0, 0, 0.85); 
+    z-index: 2000; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active { 
+    display: flex; /* S'affiche quand on clique */
+}
+
+.modal-content { 
+    background: #0f172a; 
+    width: 95%; 
+    max-width: 800px; 
+    padding: 2rem; 
+    border-radius: 20px; 
+    border: 1px solid var(--border); 
+    position: relative; 
+    max-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Permet le scroll si le contenu est trop grand */
+}
+
+.modal-image-container {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px; /* Évite que ça saute au chargement */
+    max-height: 50vh; 
+    overflow: hidden;
+    flex-shrink: 0; /* Empêche l'image de s'écraser */
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 50vh; 
+    object-fit: contain; 
+    display: block;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.modal-description {
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.modal-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+/* Flèches de navigation */
+.modal-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.modal-nav-btn:hover { background: var(--accent); color: black; }
+.modal-nav-btn.prev { left: 10px; }
+.modal-nav-btn.next { right: 10px; }
+
+.footer { padding: 4rem 0; text-align: center; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 4rem; }

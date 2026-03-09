@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison des Ligues de Lorraine</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Maison des Ligues de Lorraine</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li class="menu-deroulant">
+                <a href="services.html">Services</a>
+                <ul class="sous-menu">
+                    <li><a href="services.html#acces_internet">Accès Internet</a></li>
+                    <li><a href="services.html#acces_wifi">Accès Wifi</a></li>
+                    <li><a href="services.html#telephonie">Téléphonie</a></li>
+                    <li><a href="services.html#affranchissement">Affranchissement</a></li>
+                    <li><a href="services.html#impressions">Impressions</a></li>
+                    <li><a href="services.html#serveur_ftp">Serveur FTP</a></li>
+                    <li><a href="services.html#systeme_reserv">Réservation Salles</a></li>
+                    <li><a href="services.html#info_digicode_wifi">Informations du jour</a></li>
+                    <li><a href="services.html#gest_config">Gestion configs</a></li>
+                    <li><a href="services.html#integ_inform_ligues">Integration postes</a></li>
+                    <li><a href="services.html#integ_impr">Intégration imprimantes</a></li>
+                    <li><a href="services.html#serv_etab_salaire">Bulletins de salaire</a></li>
+                    <li><a href="services.html#formations">Formations</a></li>
+                </ul>   
+            <li><a href="locaux.html">Locaux</a></li>
+            <li class="menu-deroulant">
+                <a href="ligues.html">Ligues</a>
+                <ul class="sous-menu">
+                    <li><a href="ligues.html#ligue1">Ligue Boxe</a></li>
+                    <li><a href="ligues.html#ligue2">Ligue Tennis</a></li>
+                    <li><a href="ligues.html#ligue3">Ligue Judo</a></li>
+                    <li><a href="ligues.html#ligue4">Ligue Futsal</a></li>
+                    <li><a href="ligues.html#ligue5">Ligue Karaté </a></li>
+                    <li><a href="ligues.html#ligue6">Ligue Handball</a></li>
+                    <li><a href="ligues.html#ligue7">Ligue Badminton</a></li>
+                </ul>
+            </li>  
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content">
+            <h2>Services proposés aux ligues par la M2L</h2>
+            <div id="acces_internet" class="service">
+                <h3>Accès Internet</h3>
+                <p>Les ligues disposent d'un accès Internet mutualisé que la M2L loue à un prestataire extérieur.</p>
+            </div>
+            <div id="acces_wifi" class="service">
+                <h3>Accès Wifi</h3>
+                <p>Dans tous les espaces, un réseau Wifi "visiteurs" est disponible, avec une clé WPA renouvelée régulièrement et communiquée aux ligues. Ce réseau ne permet que l'accès à Internet.</p>
+            </div>
+            <div id="telephonie" class="service">
+                <h3>Téléphonie</h3>
+                <p>Dans les bâtiments anciens A et B, les salles et bureaux sont équipés de prises de téléphone analogiques. La M2L y fournit les combinés téléphoniques. Dans les bâtiments neufs C et D, l'équipement téléphonique est de type VoIP. La M2L loue des postes téléphoniques IP aux ligues.</p>
+            </div>
+            <div id="affranchissement" class="service">
+                <h3>Affranchissement</h3>
+                <p>Une machine à affranchir permet un affranchissement rapide et en nombre. Cette prestation est facturée aux ligues au coût de l'affranchissement. Chaque mois, on relie la machine à affranchir à une imprimante pour obtenir une liste de codes de gestion correspondant aux ligues associés à une quantité et un type d'affranchissement. La prise en compte de ces informations permet au CROSL d'éditer des factures.</p>
+            </div>
+            <div id="impressions" class="service">
+                <h3>Impressions en volume et en qualité imprimerie</h3>
+                <p>Les ligues disposent de la possibilité d'imprimer sur des ressources d'impression numériques connectées situées dans le local reprographie du rez-de-chaussée dont l'usage fait l'objet d'une facturation à prix coûtant. Un système de comptage situé sur le serveur d'impression permet au CROSL d’effectuer une facturation mensuelle auprès des ligues.</p>
+                <ul>
+                    <li>Une photocopieuse noir et blanc à 70 pages/minute avec différents dispositifs de finition,</li>
+                    <li>Une imprimante Laser couleur A4/A3 à encre solide à 25 pages/minute,</li>
+                    <li>Un traceur A2 (1 page / minute) utilisé pour les affiches et banderoles.</li>
+                </ul>
+            </div>
+            <div id="serveur_ftp" class="service">
+                <h3>Serveur FTP documentaire</h3>
+                <p>La M2L met à disposition des ligues un serveur FTP documentaire intranet/internet regroupant des textes légaux, des modèles de dossiers, de statuts, des programmes de formation (...) compilés par le CROSL.</p>
+            </div>
+            <div id="systeme_reserv" class="service">
+                <h3>Système de réservation des salles</h3>
+                <p>La M2L met à disposition des ligues un système de réservation des salles (réunions, amphithéâtre, restauration). Les réservations payantes sont facturées par la Région aux utilisateurs. L’administration de la M2L lui communique les informations nécessaires à cette facturation de façon hebdomadaire.</p>
+            </div>
+            <div id="info_digicode_wifi" class="service">
+                <h3>Information sur le digicode du jour et la clé Wifi</h3>
+                <p>La M2L met à disposition des ligues un site web d'information sur le digicode permettant l'accès à la M2L ainsi que sur la clé Wifi "visiteurs". Le système de réservation donne également le digicode du jour dans le compte-rendu de réservation envoyé automatiquement par mail.</p>
+            </div>
+            <div id="gest_config" class="service">
+                <h3>Système de gestion des configurations</h3>
+                <p>M2L gère à travers un logiciel de gestion des configurations l'ensemble du parc informatique incluant les postes fixes des ligues.</p>
+            </div>
+            <div id="integ_inform_ligues" class="service">
+                <h3>Intégration des postes informatiques des ligues</h3>
+                <p>Lorsque les ligues acquièrent du matériel informatique, il y a une phase obligatoire d'intégration qui consiste à :</p>
+                <ul>
+                    <li>Installer un antivirus affilié au serveur antiviral de la M2L,</li>
+                    <li>Installer la dernière version de l'agent qui réalise l’inventaire matériel et logiciel,</li>
+                    <li>Paramétrer le poste en adressage IP automatique,</li>
+                    <li>Installer un système de sauvegarde de données sur un site FTP de sauvegarde géré par la M2L,</li>
+                    <li>Effectuer les dernières mises à jour systèmes et à paramétrer leur automatisation,</li>
+                    <li>Paramétrer les noms des postes selon les règles de gestion suivantes : B[code bâtiment]E[numéro étage]L[numéro ligue]S[numéro salle].P[numéro poste]</li>
+                </ul>
+                <p>Cette intégration est contractualisée. Les ligues et CD étant toutes des structures associatives indépendantes, leurs postes ne sont pas intégrés dans un annuaire central. Par contre, les postes de l'administration de la M2L et de la salle multimédia le sont.</p>
+            </div>
+            <div id="integ_impr" class="service">
+                <h3>Intégration d'imprimantes</h3>
+                <p>Lorsque les structures hébergées s'équipent d'imprimante réseau, la connexion en est réalisée par l'informaticien bénévole du CROSL, sans passer par un serveur d'impression. Le nom de l'imprimante est lui aussi codifié de la même façon que celui des postes (la lettre L vient remplacer la lettre P).</p>
+            </div>
+            <div id="serv_etab_salaire" class="service">
+                <h3>Service d'établissement de bulletins de salaire</h3>
+                <p>Le CRIB (Centre Régional d'Information des Bénévoles) est un label donné au CROSL qui, entre autres missions d'information (sur les textes réglementaires, la convention nationale du sport ...), propose un service d'établissement de bulletins de salaires aux ligues et à leurs clubs affiliés. Le CROSL est tiers de confiance pour l'URSSAF et, à ce titre, établit des bulletins de salaires réglementaires et tous les documents annexes. La prestation est facturée au forfait (60 € par an) et au bulletin édité (5 €). Un employé du CROSL est affecté à cette mission à raison de 0,8 ETP.</p>
+            </div>
+            <div id="formations" class="service">
+                <h3>Formations</h3>
+                <p>Le CROSL offre un catalogue diversifié de formations aux bénévoles des clubs affiliés aux ligues (législation, éthique, comptabilité associative, etc.). Les ligues organisent également des formations, en général plus techniques, sur l'usage de logiciels spécifiques de gestion des clubs ou des compétitions sportives.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+            <ul>
+                <li><a href="formulaire.html"target="_blank">Nous contacter</a></li>
+                <li><a href="https://www.facebook.com/?locale=fr_FR" target="_blank">Facebook</a></li>
+                <li><a href="https://www.instagram.com/"  target="_blank">Instagram</a></li>
+                <li><a href="https://www.google.com/maps/place/Ligue+du+Grand+Est+de+Football/@48.7222319,6.1311533,14.25z/data=!4m10!1m2!2m1!1sMaisons+des+ligues+de+Lorraine!3m6!1s0x4794bd3739602975:0xc1f13e7a58e9fa66!8m2!3d48.72407!4d6.1463249!15sCh5NYWlzb25zIGRlcyBsaWd1ZXMgZGUgTG9ycmFpbmWSARthc3NvY2lhdGlvbl9vcl9vcmdhbml6YXRpb27gAQA!16s%2Fg%2F11b6znjp84?hl=fr&entry=ttu&g_ep=EgoyMDI1MDMxOS4yIKXMDSoASAFQAw%3D%3D"  target="_blank">Comment venir</a></li>
+            </ul>
+        <p>Crée par Thomas</p>
+    </footer>
+</body>
+</html>
