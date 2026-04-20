@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Gougeon - Portfolio BTS SIO</title>
+    <link rel="icon" type="image/png" href="images/tempicon_bg.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Styles pour les AP accordion */
+        .ap-accordion {
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--card);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .ap-accordion:hover {
+            border-color: var(--accent);
+        }
+        .ap-accordion.professional {
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+        .ap-accordion.professional:hover {
+            border-color: var(--accent-pro);
+        }
+
+        .ap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        .ap-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .ap-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            white-space: nowrap;
+        }
+        .ap-number.stage-badge {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-pro);
+        }
+        .ap-header h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .ap-toggle {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            transition: transform 0.3s;
+            line-height: 1;
+        }
+        .ap-accordion.open .ap-toggle {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+        .ap-accordion.professional.open .ap-toggle {
+            color: var(--accent-pro);
+        }
+
+        .ap-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .ap-accordion.open .ap-body {
+            max-height: 9999px;
+        }
+        .ap-body-inner {
+            padding: 0 2rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Boîte résumé */
+        .resume-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0 1.25rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .resume-box p { margin-bottom: 0.5rem; }
+        .resume-box ul { padding-left: 1.25rem; }
+        .resume-box li { margin-bottom: 0.3rem; }
+
+        /* Bloc compétence */
+        .comp-block {
+            margin-top: 1.5rem;
+        }
+        .comp-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+            padding-left: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .ap-accordion.professional .comp-label {
+            color: var(--accent-pro);
+            border-color: var(--accent-pro);
+        }
+        .comp-desc-text {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Liens GitLab */
+        .btn-git {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+        }
+        .btn-git:hover { background: rgba(16, 185, 129, 0.2); }
+
+        /* Grille de preuves (miniatures cliquables) */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .proof-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .proof-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .ap-accordion.professional .proof-card:hover { border-color: var(--accent-pro); }
+        .proof-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        .proof-caption {
+            padding: 0.6rem 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+        .proof-caption strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        /* Séparateur de section */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 3rem 0 1.5rem;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            white-space: nowrap;
+        }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-bg"></div>
+
+    <header class="header">
+        <div class="brand">
+            <a href="index.html" style="text-decoration: none; color: inherit;">THOMAS<span>G.</span></a>
+        </div>
+        <nav>
+            <a href="#main">Accueil</a>
+            <a href="#competences">Projets</a>
+            <a href="#stages">Stages</a>
+            <a href="#veille">Veille</a>
+            <a href="cv.html" class="nav-cv">Mon CV</a>
+        </nav>
+    </header>
+
+    <div class="site-wrapper">
+
+        <!-- HERO -->
+        <section id="main" class="hero" data-aos="fade-up">
+            <div class="badge">Étudiant BTS SIO SLAM</div>
+            <h1>Portfolio <span>BTS SIO SLAM</span></h1>
+            <p>J'aide à transformer des idées complexes en interfaces <strong>rapides</strong>, <strong>claires</strong> et <strong>performantes</strong>.</p>
+            <div class="cta-group">
+                <a class="btn-primary" href="#competences">Explorer mes projets</a>
+                <a class="btn-secondary" href="cv.html">Consulter mon CV</a>
+            </div>
+        </section>
+
+        <!-- ── ATELIERS PROFESSIONNELS ── -->
+        <section id="competences" data-aos="fade-up">
+            <div class="section-header">
+                <h2 class="section-title" style="border:none; padding:0; margin:0;">Ateliers Professionnels</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <!-- AP 1.2 -->
+            <div class="ap-accordion" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number">AP 1.2</span>
+                        <h4><i class="fa-solid fa-ticket" style="color:var(--accent); margin-right:0.6rem;"></i>Ticketing Gitlab</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Gérer l'assistance technique et assurer la continuité de service à travers un cycle complet de traitement d'incidents.</p>
+                            <ul>
+                                <li>Réalisation et répartition de tickets sur Gitlab en mode collaboratif.</li>
+                                <li>Analyse approfondie des tickets d'incident pour comprendre la problématique technique.</li>
+                                <li>Recherche, diagnostic et rédaction de réponses professionnelles pour clore les tickets.</li>
+                            </ul>
+                        </div>
+                        <a href="https://gitlab.com/groupe-8505148/equipe-8/-/issues" class="btn-git" target="_blank"><i class="fa-brands fa-gitlab"></i> Voir les tickets Gitlab</a>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.2 – Répondre aux incidents et aux demandes d’assistance et d’évolution</div>
+                            <p class="comp-desc-text">Réalisation et répartition de tickets, organisation du travail en équipe via un outil de gestion de projet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AP 2.2 -->
+            <div class="ap-accordion" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number">AP 2.2</span>
+                        <h4><i class="fa-solid fa-users" style="color:var(--accent); margin-right:0.6rem;"></i>Application M2L – Journées Portes Ouvertes</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Concevoir une application de gestion pour l'organisation et l'inscription des membres lors des JPO de la M2L.</p>
+                            <ul>
+                                <li>Mise en place d'un site M2L (HTML/CSS) pour la gestion des membres lors des JPO.</li>
+                                <li>Conception de l'interface graphique dédiée à l'enregistrement et à l'inscription des membres.</li>
+                                <li>Participation à la planification et organisation globale du projet.</li>
+                            </ul>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.3 – Développer la présence en ligne de l’organisation</div>
+                            <p class="comp-desc-text">Application web pour les Journées Portes Ouvertes de la M2L.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/ap2-2_enreg-membres-interfac.png', 'Interface enregistrement membres')">
+                                    <img src="images/ap2-2_enreg-membres-interfac.png" alt="Enregistrement membres">
+                                    <div class="proof-caption"><strong>Enregistrement Membres</strong>Interface d'accueil pour la gestion des membres JPO.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/ap2-2_inscrip-membres-interfac.png', 'Interface inscription membres')">
+                                    <img src="images/ap2-2_inscrip-membres-interfac.png" alt="Inscription membres">
+                                    <div class="proof-caption"><strong>Inscription Membres</strong>Formulaire dynamique pour le recueil des inscriptions.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/ap2-2_enreg-membres-code.png', 'Code enregistrement membres')">
+                                    <img src="images/ap2-2_enreg-membres-code.png" alt="Code enregistrement">
+                                    <div class="proof-caption"><strong>Code Source</strong>Implémentation de la logique d'enregistrement des membres.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.4 – Travailler en mode projet</div>
+                            <p class="comp-desc-text">Participation active à la planification et validation des étapes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AP 2.3 -->
+            <div class="ap-accordion" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number">AP 2.3</span>
+                        <h4><i class="fa-solid fa-laptop-code" style="color:var(--accent); margin-right:0.6rem;"></i>Site M2L – Développement & Planification</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Développer une plateforme web collaborative pour le suivi des rencontres sportives de la Maison des Ligues.</p>
+                            <ul>
+                                <li>Création d'un portail dynamique pour la Maison des Ligues (HTML/CSS).</li>
+                                <li>Définition des tâches et répartition des rôles via Wekan.</li>
+                                <li>Modification, optimisation et validation finale du code source.</li>
+                            </ul>
+                        </div>
+                        <a href="sites/ap2.3-groupe-7-main/index.html" class="btn-git" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Voir le site M2L</a>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.3 – Développer la présence en ligne de l’organisation</div>
+                            <p class="comp-desc-text">Mise en place d'un nouveau site dynamique pour l'organisation.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/AP-2.3-site_preview.png', 'Aperçu site M2L')">
+                                    <img src="images/AP-2.3-site_preview.png" alt="Site M2L">
+                                    <div class="proof-caption"><strong>Portail M2L</strong>Page vitrine présentant les offres de la Maison des Ligues.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.4 – Travailler en mode projet</div>
+                            <p class="comp-desc-text">Planification et organisation du projet via Wekan — définition des tâches, estimation des délais, répartition des rôles.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/m2l-plan.png', 'Planification M2L')">
+                                    <img src="images/m2l-plan.png" alt="Planification M2L">
+                                    <div class="proof-caption"><strong>Wekan M2L</strong>Organisation des tâches et suivi collaboratif du projet.</div>
+                                </div>
+                            </div>
+                            <br>
+                            <a href="https://wekan.lyceeconnecte.fr/b/iq67ak347qbfjPwuM/groupe-7-ap-2-3" class="btn-git" target="_blank"><i class="fa-solid fa-calendar-check"></i> Voir la planification Wekan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AP 2.4 -->
+            <div class="ap-accordion" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number">AP 2.4</span>
+                        <h4><i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent); margin-right:0.6rem;"></i>Gestionnaire de Championnat – Déploiement & Planification</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Piloter l'organisation technique d'un championnat, incluant la gestion des matchs, scores et du corps arbitral, puis déployer l'application.</p>
+                            <ul>
+                                <li>Déploiement complet de l'application de gestion de championnats sportifs.</li>
+                                <li>Suivi des étapes via méthodes Agile ou Cycle en V.</li>
+                                <li>Planification via diagrammes de Gantt et validation des maquettes.</li>
+                            </ul>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.3 – Développer la présence en ligne de l’organisation</div>
+                            <p class="comp-desc-text">Déploiement et mise à disposition de l'application utilisateur.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/tp2-4_affichage_equipe.png', 'Affichage équipe')">
+                                    <img src="images/tp2-4_affichage_equipe.png" alt="Affichage équipe">
+                                    <div class="proof-caption"><strong>Affichage Équipes</strong>Vue des équipes du championnat.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/tp2-4_gestion_equipe.png', 'Gestion équipe')">
+                                    <img src="images/tp2-4_gestion_equipe.png" alt="Gestion équipe">
+                                    <div class="proof-caption"><strong>Gestion Équipes</strong>Interface d'administration des équipes.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/tp2-4_affichage_club.png', 'Affichage clubs')">
+                                    <img src="images/tp2-4_affichage_club.png" alt="Affichage clubs">
+                                    <div class="proof-caption"><strong>Affichage Clubs</strong>Consultation des clubs participants.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.4 – Travailler en mode projet</div>
+                            <p class="comp-desc-text">Suivi des étapes de développement et de déploiement.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/championnat-plan.png', 'Planification Championnat')">
+                                    <img src="images/championnat-plan.png" alt="Planification Championnat">
+                                    <div class="proof-caption"><strong>Planning Championnat</strong>Suivi des phases de développement.</div>
+                                </div>
+                            </div>
+                            <br>
+                            <a href="https://wekan.lyceeconnecte.fr/b/oh359u89ag62qWCaJ/groupe-11-ap-2-4" class="btn-git" target="_blank"><i class="fa-solid fa-diagram-project"></i> Voir la planification Wekan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AP 3.1 -->
+            <div class="ap-accordion" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number">AP 3.1</span>
+                        <h4><i class="fa-solid fa-calendar-check" style="color:var(--accent); margin-right:0.6rem;"></i>Site M2L Dynamique – Planification</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Faire évoluer le portail web de la M2L en ajoutant une couche dynamique côté serveur et en sécurisant les formulaires.</p>
+                            <ul>
+                                <li>Définition des tâches et répartition des rôles via Trello.</li>
+                                <li>Estimation des délais et suivi de l'avancement du projet.</li>
+                            </ul>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.4 – Travailler en mode projet</div>
+                            <p class="comp-desc-text">Planification et organisation du projet de site dynamique pour la M2L.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/m2l-dyna-plan.png', 'Planification M2L Dynamique')">
+                                    <img src="images/m2l-dyna-plan.png" alt="Planification M2L Dynamique">
+                                    <div class="proof-caption"><strong>Trello M2L Dyna</strong>Suivi des tâches et répartition des rôles.</div>
+                                </div>
+                            </div>
+                            <br>
+                            <a href="https://trello.com/b/Wk8lylU0/m2l7" class="btn-git" target="_blank"><i class="fa-solid fa-calendar-check"></i> Voir la planification Trello</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Capteur COV/CO2 -->
+            <div class="ap-accordion professional" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number stage-badge">PRO</span>
+                        <h4><i class="fa-solid fa-microchip" style="color:var(--accent-pro); margin-right:0.6rem;"></i>Capteur COV et CO2</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Développer un prototype fonctionnel de capteur de qualité de l'air avec documentation technique complète.</p>
+                            <ul>
+                                <li>Tests d'affichage des valeurs sur LCD et moniteur série.</li>
+                                <li>Mise en place d'un prototype fonctionnel de capteur CO2/COV réutilisable.</li>
+                                <li>Création d'une documentation expliquant câblage + code.</li>
+                            </ul>
+                        </div>
+                        <a href="https://projets.cohabit.fr/redmine/projects/capteur-cov/wiki/Wiki" class="btn-git" target="_blank"><i class="fa-solid fa-book"></i> Documentation</a>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.5 – Mettre à disposition des utilisateurs un service informatique</div>
+                            <p class="comp-desc-text">Prototype fonctionnel et documentation technique complète.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/capteur1.jpg', 'Capteur COV/CO2 - Photo 1')">
+                                    <img src="images/capteur1.jpg" alt="Capteur 1">
+                                    <div class="proof-caption"><strong>Prototype</strong>Montage du capteur COV/CO2.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/capteur2.jpg', 'Capteur COV/CO2 - Photo 2')">
+                                    <img src="images/capteur2.jpg" alt="Capteur 2">
+                                    <div class="proof-caption"><strong>Câblage</strong>Connexions matérielles du capteur.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/capteur3.png', 'Capteur COV/CO2 - Code')">
+                                    <img src="images/capteur3.png" alt="Capteur 3">
+                                    <div class="proof-caption"><strong>Code</strong>Programme d'affichage sur LCD.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.6 – Organiser son développement professionnel</div>
+                            <p class="comp-desc-text">Ressources consultées pour l'apprentissage des capteurs Arduino/Microcontrôleur.</p>
+                            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.5rem;">
+                                <a href="https://projets.cohabit.fr/redmine/attachments/download/15344/Connectique%20capteur%20CCS%20811.pdf" class="btn-git" target="_blank">Capteur d'Air</a>
+                                <a href="https://www.robotique.tech/tutoriel/afficher-un-texte-sur-lafficheur-i2c-lcd-1602a-avec-arduino/" class="btn-git" target="_blank">Écran LCD</a>
+                                <a href="https://cricklewoodelectronics.com/CJMCU-811CO2-VOC-Air-quality-Module-with-CCS811-for-Arduino-and-other-microcontroller-projects.html" class="btn-git" target="_blank">Module qualité air</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Serveur Raspberry Pi -->
+            <div class="ap-accordion professional" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number stage-badge">PRO</span>
+                        <h4><i class="fa-solid fa-microchip" style="color:var(--accent-pro); margin-right:0.6rem;"></i>Projet Serveur Raspberry Pi</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Objectif :</strong> Développer un serveur sur Raspberry Pi permettant aux utilisateurs de déposer et gérer des fichiers depuis n'importe quel appareil connecté au Wi-Fi.</p>
+                            <ul>
+                                <li>Configuration Wi-Fi, serveur Python, portail captif multi-OS.</li>
+                                <li>Explorateur de fichiers web, espace de partage réseau.</li>
+                                <li>Démarrage automatique via systemd.</li>
+                            </ul>
+                        </div>
+                        <a href="https://projets.cohabit.fr/redmine/projects/borne-de-sauvegarde-freecad-sur-cle-usb-raspberry-pi-hotspot-wifi-portail-captif-upload-http-usb-fab/wiki/Wiki/5" class="btn-git" target="_blank"><i class="fa-solid fa-book"></i> Documentation</a>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.5 – Mettre à disposition des utilisateurs un service informatique</div>
+                            <p class="comp-desc-text">Déploiement d'un service WiFi + serveur web + stockage USB accessible sans configuration.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/photo_rasp1.jpg', 'Raspberry Pi - Photo 1')">
+                                    <img src="images/photo_rasp1.jpg" alt="Raspberry 1">
+                                    <div class="proof-caption"><strong>Hardware</strong>Installation et câblage du Raspberry Pi.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/photo_rasp2.jpg', 'Raspberry Pi - Photo 2')">
+                                    <img src="images/photo_rasp2.jpg" alt="Raspberry 2">
+                                    <div class="proof-caption"><strong>Setup</strong>Configuration physique du serveur.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/photo_rasp_interface_upload.png', 'Interface Upload')">
+                                    <img src="images/photo_rasp_interface_upload.png" alt="Interface Upload">
+                                    <div class="proof-caption"><strong>Interface Upload</strong>Page web de dépôt de fichiers.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/photo_rasp_interface_fichiers.png', 'Explorateur de fichiers')">
+                                    <img src="images/photo_rasp_interface_fichiers.png" alt="Interface fichiers">
+                                    <div class="proof-caption"><strong>Explorateur</strong>Navigation dans les fichiers des clés USB.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/photo_rasp_interface_partage.png', 'Espace de partage')">
+                                    <img src="images/photo_rasp_interface_partage.png" alt="Interface partage">
+                                    <div class="proof-caption"><strong>Partage Réseau</strong>Espace commun visible par tous les utilisateurs.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── STAGES ── -->
+        <section id="stages" data-aos="fade-up" style="margin-top: 2rem;">
+            <div class="section-header">
+                <h2 class="section-title" style="border:none; padding:0; margin:0;">Expériences de Stage</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <!-- Stage 1 -->
+            <div class="ap-accordion professional" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number stage-badge">STAGE 1</span>
+                        <h4><i class="fa-solid fa-briefcase" style="color:var(--accent-pro); margin-right:0.6rem;"></i>Fablab Cohabit – 1ère Année (2025)</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p><strong>Durée :</strong> 5 semaines au Fablab Cohabit</p>
+                            <p>Observation du fonctionnement du Fablab, réparation d'un ordinateur en panne (carte graphique), création d'un bot JavaScript via SSH, découverte de plusieurs langages (C++, JavaScript, COBOL).</p>
+                            <p>Projet capteur de qualité de l'air (COV et CO₂) avec un camarade : câblage LCD I2C, programmation Arduino, tests dans différents environnements.</p>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.1 – Gérer le patrimoine informatique</div>
+                            <p class="comp-desc-text">Observation du matériel du Fablab et réparation d'équipements informatiques.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/stage1_repa_pc.png', 'Réparation PC')">
+                                    <img src="images/stage1_repa_pc.png" alt="Réparation PC">
+                                    <div class="proof-caption"><strong>Réparation PC</strong>Diagnostic et résolution d'une panne matérielle.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/stage image des impriments 3D observer.png', 'Observation Matériel')">
+                                    <img src="images/stage image des impriments 3D observer.png" alt="Imprimantes 3D">
+                                    <div class="proof-caption"><strong>Imprimantes 3D</strong>Découverte des équipements du Fablab.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.2 – Répondre aux incidents et aux demandes d’assistance et d’évolution</div>
+                            <p class="comp-desc-text">Tests et validation du capteur de qualité de l'air dans différents environnements.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/stage different testes realiser avec capteur sur des environement.png', 'Tests environnementaux')">
+                                    <img src="images/stage different testes realiser avec capteur sur des environement.png" alt="Tests capteur">
+                                    <div class="proof-caption"><strong>Tests Environnementaux</strong>Analyse des mesures COV et CO₂ en conditions variées.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/stage image de capteur COV et CO2 functionnel.png', 'Capteur fonctionnel')">
+                                    <img src="images/stage image de capteur COV et CO2 functionnel.png" alt="Capteur fonctionnel">
+                                    <div class="proof-caption"><strong>Capteur Fonctionnel</strong>Système de mesure opérationnel et calibré.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.3 – Développer la présence en ligne de l’organisation</div>
+                            <p class="comp-desc-text">Découverte et utilisation de WordPress pour la création de sites web.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/stage decouverte word press.png', 'Découverte WordPress')">
+                                    <img src="images/stage decouverte word press.png" alt="WordPress">
+                                    <div class="proof-caption"><strong>WordPress</strong>Apprentissage des bases de la création de sites.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comp-block">
+                            <div class="comp-label">B1.5 – Mettre à disposition des utilisateurs un service informatique</div>
+                            <p class="comp-desc-text">Développement et programmation du capteur pour afficher les résultats en temps réel.</p>
+                            <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/stage image de app utiliser pour faire marche arduino.png', 'Environnement Arduino')">
+                                    <img src="images/stage image de app utiliser pour faire marche arduino.png" alt="Arduino IDE">
+                                    <div class="proof-caption"><strong>Environnement Arduino</strong>Configuration de l'IDE pour la programmation.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/stage image de code utiliser pour affichage de reultat capteurpng.png', 'Code Arduino')">
+                                    <img src="images/stage image de code utiliser pour affichage de reultat capteurpng.png" alt="Code Arduino">
+                                    <div class="proof-caption"><strong>Code Arduino</strong>Programme de lecture et affichage sur LCD.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 2 (placeholder) -->
+            <div class="ap-accordion professional" data-aos="fade-up">
+                <div class="ap-header" onclick="toggleAP(this)">
+                    <div class="ap-header-left">
+                        <span class="ap-number stage-badge">STAGE 2</span>
+                        <h4><i class="fa-solid fa-briefcase" style="color:var(--accent-pro); margin-right:0.6rem;"></i>Stage 2ème Année – À venir</h4>
+                    </div>
+                    <span class="ap-toggle">+</span>
+                </div>
+                <div class="ap-body">
+                    <div class="ap-body-inner">
+                        <div class="resume-box">
+                            <p>Contenu à venir — réalisations et compétences de 2ème année.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── VEILLE ── -->
+        <section id="veille" data-aos="fade-up" style="margin-top: 2rem;">
+            <h2 class="section-title">Veille Technologique</h2>
+            <div class="card-glass veille-card" data-modal="veille-1">
+                <div class="veille-header">
+                    <span class="tag-ai">IA GÉNÉRATIVE</span>
+                    <h4>L'impact de l'IA sur le développement Web</h4>
+                </div>
+                <p>Analyse de l'évolution des outils comme Copilot, Cursor et Mistral AI en 2026.</p>
+                <div class="card-footer">Ressources <i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL VEILLE (ancienne système) -->
+    <div id="modal" class="modal-overlay">
+        <div id="modal-content-wrapper" class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-image-container">
+                <img id="modal-image" class="modal-image" src="" alt="">
+                <button class="modal-nav-btn prev" onclick="previousImage()">‹</button>
+                <button class="modal-nav-btn next" onclick="nextImage()">›</button>
+            </div>
+            <div class="image-counter" id="image-counter"></div>
+            <h3 id="modal-title" class="modal-title"></h3>
+            <div id="modal-description" class="modal-description"></div>
+            <div id="modal-links" class="modal-links"></div>
+        </div>
+    </div>
+
+    <!-- MODAL PROOF (images des preuves) -->
+    <div id="proof-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:3000; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(5px);" onclick="closeProof()">
+        <button onclick="event.stopPropagation(); closeProof()" style="position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,0.1); border:none; color:white; width:35px; height:35px; border-radius:50%; cursor:pointer; font-size:1rem;">✕</button>
+        <div onclick="event.stopPropagation()" style="max-width:900px; width:100%; text-align:center;">
+            <img id="proof-img" src="" alt="" style="max-width:100%; max-height:80vh; object-fit:contain; border-radius:12px;">
+            <p id="proof-caption-text" style="color:#9ca3af; margin-top:1rem; font-size:0.9rem;"></p>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Thomas Gougeon - Portfolio BTS SIO</footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // ── ACCORDION AP ──
+        function toggleAP(header) {
+            header.closest('.ap-accordion').classList.toggle('open');
+        }
+
+        // ── MODAL PROOF (miniatures) ──
+        function openProof(src, caption) {
+            const modal = document.getElementById('proof-modal');
+            document.getElementById('proof-img').src = src;
+            document.getElementById('proof-caption-text').textContent = caption || '';
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeProof() {
+            document.getElementById('proof-modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProof(); closeModal(); } });
+
+        // ── MODAL VEILLE (ancien système conservé) ──
+        const modalData = {
+            'veille-1': {
+                images: ['images/veille.jpg'],
+                title: "L'assistance à la programmation par l'IA",
+                description: `
+                    <p><strong>Contexte 2025-2026 :</strong> Le développement logiciel vit sa plus grande mutation depuis l'invention des langages de haut niveau. On passe de l'autocomplétion simple à l'ingénierie logicielle dirigée par les agents.</p>
+                    <br><strong>1. Évolution des outils majeurs :</strong>
+                    <ul>
+                        <li><strong>GitHub Copilot Workspace :</strong> Lancé fin 2025, il permet de générer un plan de développement complet à partir d'une "Issue".</li>
+                        <li><strong>Cursor & Windsurf :</strong> Ces éditeurs "AI-native" dominent le marché en 2026 grâce au <em>Context-Awareness</em>.</li>
+                    </ul>
+                    <br><strong>2. La révolution des Agents (Claude 4 & Gemini 3) :</strong>
+                    <ul>
+                        <li><strong>Action autonome :</strong> Avec des capacités comme le "Computer Use", l'IA peut exécuter des tests unitaires, lire les erreurs et corriger le code elle-même.</li>
+                        <li><strong>Fenêtres de contexte massives :</strong> Gemini 3 Pro permet d'analyser l'intégralité d'un monorepo (1M+ tokens).</li>
+                    </ul>
+                    <br><strong>3. Cybersécurité et Code Généré :</strong>
+                    <ul>
+                        <li><strong>Vulnérabilités :</strong> Environ 40% du code généré par IA peut contenir des failles (injections SQL, mauvaises gestions de mémoire).</li>
+                        <li><strong>Solutions DevSecOps :</strong> L'intégration d'outils comme <em>Snyk</em> ou <em>SonarQube</em> dans le cycle CI/CD devient indispensable.</li>
+                    </ul>
+                    <br><strong>4. Enjeux pour le développeur SIO :</strong>
+                    <ul>
+                        <li><strong>Sécurité :</strong> Risque d'injection de vulnérabilités par l'IA. Les outils SAST comme Snyk deviennent obligatoires.</li>
+                        <li><strong>Évolution du rôle :</strong> Le développeur devient un "architecte" et un "auditeur" plutôt qu'un exécutant.</li>
+                    </ul>
+                    <br><strong>5. Souveraineté et IA "Made in France" :</strong>
+                    <ul>
+                        <li><strong>Alternative Européenne :</strong> L'utilisation de modèles comme <em>Mistral AI</em> garantit une meilleure conformité RGPD.</li>
+                    </ul>
+                `,
+                links: [
+                    { text: "Documentation GitHub Copilot", url: "https://docs.github.com/en/copilot" },
+                    { text: "OVHcloud : Solutions d'IA souveraine", url: "https://www.ovhcloud.com/fr/solutions/uc-artificial-intelligence/" },
+                    { text: "Google: Gemini AI", url: "https://gemini.google/be/about/?hl=fr" },
+                    { text: "Snyk : Sécuriser le code généré par l'IA", url: "https://snyk.io/fr/solutions/secure-ai-generated-code/" },
+                    { text: "Mistral AI : L'alternative française", url: "https://mistral.ai/fr/news/announcing-codestral/" }
+                ],
+                isProfessional: true
+            }
+        };
+
+        let currentModalId = null;
+        let currentImageIndex = 0;
+
+        document.querySelectorAll('.card-glass[data-modal]').forEach(card => {
+            card.addEventListener('click', () => openModal(card.getAttribute('data-modal')));
+        });
+
+        function openModal(modalId) {
+            const data = modalData[modalId];
+            if (!data) return;
+            currentModalId = modalId;
+            currentImageIndex = 0;
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content-wrapper');
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-description').innerHTML = data.description;
+            if (data.isProfessional) modalContent.classList.add('professionel');
+            else modalContent.classList.remove('professionel');
+            const linksContainer = document.getElementById('modal-links');
+            linksContainer.innerHTML = '';
+            data.links.forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.textContent = link.text;
+                a.className = 'btn-primary';
+                a.style.fontSize = '0.8rem';
+                a.target = '_blank';
+                linksContainer.appendChild(a);
+            });
+            updateModalImage();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateModalImage() {
+            const data = modalData[currentModalId];
+            const modalImg = document.getElementById('modal-image');
+            const container = document.querySelector('.modal-image-container');
+            const counter = document.getElementById('image-counter');
+            const navs = document.querySelectorAll('.modal-nav-btn');
+            if (data.images && data.images.length > 0) {
+                container.style.display = 'flex';
+                modalImg.src = data.images[currentImageIndex];
+                if (data.images.length > 1) {
+                    counter.textContent = `${currentImageIndex + 1} / ${data.images.length}`;
+                    counter.style.display = 'block';
+                    navs.forEach(btn => btn.style.display = 'flex');
+                } else {
+                    counter.style.display = 'none';
+                    navs.forEach(btn => btn.style.display = 'none');
+                }
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        function previousImage() { if (currentImageIndex > 0) { currentImageIndex--; updateModalImage(); } }
+        function nextImage() { if (currentImageIndex < modalData[currentModalId].images.length - 1) { currentImageIndex++; updateModalImage(); } }
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        window.onclick = (event) => { if (event.target == document.getElementById('modal')) closeModal(); }
+    </script>
+</body>
+</html>
