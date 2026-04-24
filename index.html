@@ -204,7 +204,7 @@
 
     <header class="header">
         <div class="brand">
-            <a href="https://thomasgougeon01.github.io/" style="text-decoration: none; color: inherit;">THOMAS<span>G.</span></a>
+            <a href="index.html" style="text-decoration: none; color: inherit;">THOMAS<span>G.</span></a>
         </div>
         <nav>
             <a href="#main">Accueil</a>
@@ -448,59 +448,6 @@
                 </div>
             </div>
 
-            <!-- Capteur COV/CO2 -->
-            <div class="ap-accordion professional" data-aos="fade-up">
-                <div class="ap-header" onclick="toggleAP(this)">
-                    <div class="ap-header-left">
-                        <span class="ap-number stage-badge">PRO</span>
-                        <h4><i class="fa-solid fa-microchip" style="color:var(--accent-pro); margin-right:0.6rem;"></i>Capteur COV et CO2</h4>
-                    </div>
-                    <span class="ap-toggle">+</span>
-                </div>
-                <div class="ap-body">
-                    <div class="ap-body-inner">
-                        <div class="resume-box">
-                            <p><strong>Objectif :</strong> Développer un prototype fonctionnel de capteur de qualité de l'air avec documentation technique complète.</p>
-                            <ul>
-                                <li>Tests d'affichage des valeurs sur LCD et moniteur série.</li>
-                                <li>Mise en place d'un prototype fonctionnel de capteur CO2/COV réutilisable.</li>
-                                <li>Création d'une documentation expliquant câblage + code.</li>
-                            </ul>
-                        </div>
-                        <a href="https://projets.cohabit.fr/redmine/projects/capteur-cov/wiki/Wiki" class="btn-git" target="_blank"><i class="fa-solid fa-book"></i> Documentation</a>
-
-                        <div class="comp-block">
-                            <div class="comp-label">B1.5 – Mettre à disposition des utilisateurs un service informatique</div>
-                            <p class="comp-desc-text">Prototype fonctionnel et documentation technique complète.</p>
-                            <div class="proof-grid">
-                                <div class="proof-card" onclick="openProof('images/capteur1.jpg', 'Capteur COV/CO2 - Photo 1')">
-                                    <img src="images/capteur1.jpg" alt="Capteur 1">
-                                    <div class="proof-caption"><strong>Prototype</strong>Montage du capteur COV/CO2.</div>
-                                </div>
-                                <div class="proof-card" onclick="openProof('images/capteur2.jpg', 'Capteur COV/CO2 - Photo 2')">
-                                    <img src="images/capteur2.jpg" alt="Capteur 2">
-                                    <div class="proof-caption"><strong>Câblage</strong>Connexions matérielles du capteur.</div>
-                                </div>
-                                <div class="proof-card" onclick="openProof('images/capteur3.png', 'Capteur COV/CO2 - Code')">
-                                    <img src="images/capteur3.png" alt="Capteur 3">
-                                    <div class="proof-caption"><strong>Code</strong>Programme d'affichage sur LCD.</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comp-block">
-                            <div class="comp-label">B1.6 – Organiser son développement professionnel</div>
-                            <p class="comp-desc-text">Ressources consultées pour l'apprentissage des capteurs Arduino/Microcontrôleur.</p>
-                            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.5rem;">
-                                <a href="https://projets.cohabit.fr/redmine/attachments/download/15344/Connectique%20capteur%20CCS%20811.pdf" class="btn-git" target="_blank">Capteur d'Air</a>
-                                <a href="https://www.robotique.tech/tutoriel/afficher-un-texte-sur-lafficheur-i2c-lcd-1602a-avec-arduino/" class="btn-git" target="_blank">Écran LCD</a>
-                                <a href="https://cricklewoodelectronics.com/CJMCU-811CO2-VOC-Air-quality-Module-with-CCS811-for-Arduino-and-other-microcontroller-projects.html" class="btn-git" target="_blank">Module qualité air</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Serveur Raspberry Pi -->
             <div class="ap-accordion professional" data-aos="fade-up">
                 <div class="ap-header" onclick="toggleAP(this)">
@@ -575,7 +522,14 @@
                             <p><strong>Durée :</strong> 5 semaines au Fablab Cohabit</p>
                             <p>Observation du fonctionnement du Fablab, réparation d'un ordinateur en panne (carte graphique), création d'un bot JavaScript via SSH, découverte de plusieurs langages (C++, JavaScript, COBOL).</p>
                             <p>Projet capteur de qualité de l'air (COV et CO₂) avec un camarade : câblage LCD I2C, programmation Arduino, tests dans différents environnements.</p>
+                            <p><strong>Objectif :</strong> Développer un prototype fonctionnel de capteur de qualité de l'air avec documentation technique complète.</p>
+                            <ul>
+                                <li>Tests d'affichage des valeurs sur LCD et moniteur série.</li>
+                                <li>Mise en place d'un prototype fonctionnel de capteur CO2/COV réutilisable.</li>
+                                <li>Création d'une documentation expliquant câblage + code.</li>
+                            </ul>
                         </div>
+                        <a href="https://projets.cohabit.fr/redmine/projects/capteur-cov/wiki/Wiki" class="btn-git" target="_blank"><i class="fa-solid fa-book"></i> Documentation</a>
 
                         <div class="comp-block">
                             <div class="comp-label">B1.1 – Gérer le patrimoine informatique</div>
@@ -622,6 +576,18 @@
                             <div class="comp-label">B1.5 – Mettre à disposition des utilisateurs un service informatique</div>
                             <p class="comp-desc-text">Développement et programmation du capteur pour afficher les résultats en temps réel.</p>
                             <div class="proof-grid">
+                                <div class="proof-card" onclick="openProof('images/capteur1.jpg', 'Capteur COV/CO2 - Photo 1')">
+                                    <img src="images/capteur1.jpg" alt="Capteur 1">
+                                    <div class="proof-caption"><strong>Prototype</strong>Montage du capteur COV/CO2.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/capteur2.jpg', 'Capteur COV/CO2 - Photo 2')">
+                                    <img src="images/capteur2.jpg" alt="Capteur 2">
+                                    <div class="proof-caption"><strong>Câblage</strong>Connexions matérielles du capteur.</div>
+                                </div>
+                                <div class="proof-card" onclick="openProof('images/capteur3.png', 'Capteur COV/CO2 - Code')">
+                                    <img src="images/capteur3.png" alt="Capteur 3">
+                                    <div class="proof-caption"><strong>Code</strong>Programme d'affichage sur LCD.</div>
+                                </div>
                                 <div class="proof-card" onclick="openProof('images/stage image de app utiliser pour faire marche arduino.png', 'Environnement Arduino')">
                                     <img src="images/stage image de app utiliser pour faire marche arduino.png" alt="Arduino IDE">
                                     <div class="proof-caption"><strong>Environnement Arduino</strong>Configuration de l'IDE pour la programmation.</div>
@@ -630,6 +596,15 @@
                                     <img src="images/stage image de code utiliser pour affichage de reultat capteurpng.png" alt="Code Arduino">
                                     <div class="proof-caption"><strong>Code Arduino</strong>Programme de lecture et affichage sur LCD.</div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="comp-block">
+                            <div class="comp-label">B1.6 – Organiser son développement professionnel</div>
+                            <p class="comp-desc-text">Ressources consultées pour l'apprentissage des capteurs Arduino/Microcontrôleur.</p>
+                            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.5rem;">
+                                <a href="https://projets.cohabit.fr/redmine/attachments/download/15344/Connectique%20capteur%20CCS%20811.pdf" class="btn-git" target="_blank">Capteur d'Air</a>
+                                <a href="https://www.robotique.tech/tutoriel/afficher-un-texte-sur-lafficheur-i2c-lcd-1602a-avec-arduino/" class="btn-git" target="_blank">Écran LCD</a>
+                                <a href="https://cricklewoodelectronics.com/CJMCU-811CO2-VOC-Air-quality-Module-with-CCS811-for-Arduino-and-other-microcontroller-projects.html" class="btn-git" target="_blank">Module qualité air</a>
                             </div>
                         </div>
                     </div>
@@ -648,7 +623,12 @@
                 <div class="ap-body">
                     <div class="ap-body-inner">
                         <div class="resume-box">
-                            <p>Contenu à venir — réalisations et compétences de 2ème année.</p>
+                            <p><strong>Objectif :</strong> Développer un serveur sur Raspberry Pi permettant aux utilisateurs de déposer et gérer des fichiers depuis n'importe quel appareil connecté au Wi-Fi.</p>
+                            <ul>
+                                <li>Configuration Wi-Fi, serveur Python, portail captif multi-OS.</li>
+                                <li>Explorateur de fichiers web, espace de partage réseau.</li>
+                                <li>Démarrage automatique via systemd.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
